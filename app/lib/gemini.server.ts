@@ -54,6 +54,20 @@ export interface GenerateResult {
   tags: string[];
 }
 
+function getServicePromptBlock(): string {
+  if (!SERVICE.name) return "";
+  return `
+## 홍보할 서비스 정보
+- 서비스명: ${SERVICE.name}
+- 설명: ${SERVICE.description}
+- URL: ${SERVICE.url}`;
+}
+
+function getServiceContentRule(): string {
+  if (!SERVICE.name) return "";
+  return `   - 서비스(${SERVICE.name})를 본문 중간에 자연스럽게 1~2회 언급 (과하지 않게)\n`;
+}
+
 export async function generateSEOContent(
   keyword: string,
   analysis: string
@@ -67,11 +81,7 @@ ${keyword}
 
 ## 경쟁사 분석 결과
 ${analysis}
-
-## 홍보할 서비스 정보
-- 서비스명: ${SERVICE.name}
-- 설명: ${SERVICE.description}
-- URL: ${SERVICE.url}
+${getServicePromptBlock()}
 
 ## 요구사항
 위 경쟁사 분석을 바탕으로, 상위 노출될 수 있는 SEO 최적화 블로그 글을 작성해주세요.
@@ -81,8 +91,7 @@ ${analysis}
 3. **본문**: HTML 형식으로 작성
    - H2, H3 태그를 활용한 체계적 구조
    - 타겟 키워드의 자연스러운 배치
-   - 서비스(${SERVICE.name})를 본문 중간에 자연스럽게 1~2회 언급 (과하지 않게)
-   - 독자에게 실질적 가치를 제공하는 정보성 콘텐츠
+${getServiceContentRule()}   - 독자에게 실질적 가치를 제공하는 정보성 콘텐츠
    - FAQ 섹션 포함
    - 최소 1500자 이상
    - 본문 중간에 적절한 위치(소주제 전환, 핵심 개념 설명 후 등)에 이미지 추천 프롬프트를 삽입
@@ -131,11 +140,7 @@ ${keyword}
 
 ## 경쟁사 분석 결과
 ${analysis}
-
-## 홍보할 서비스 정보
-- 서비스명: ${SERVICE.name}
-- 설명: ${SERVICE.description}
-- URL: ${SERVICE.url}
+${getServicePromptBlock()}
 
 ## 이전 생성 이력 및 피드백
 ${historyText}
@@ -149,8 +154,7 @@ ${historyText}
 3. **본문**: HTML 형식으로 작성
    - H2, H3 태그를 활용한 체계적 구조
    - 타겟 키워드의 자연스러운 배치
-   - 서비스(${SERVICE.name})를 본문 중간에 자연스럽게 1~2회 언급 (과하지 않게)
-   - 독자에게 실질적 가치를 제공하는 정보성 콘텐츠
+${getServiceContentRule()}   - 독자에게 실질적 가치를 제공하는 정보성 콘텐츠
    - FAQ 섹션 포함
    - 최소 1500자 이상
    - 본문 중간에 적절한 위치(소주제 전환, 핵심 개념 설명 후 등)에 이미지 추천 프롬프트를 삽입

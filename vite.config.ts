@@ -9,6 +9,9 @@ export default defineConfig(({ mode }) => {
     plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
     define: {
       "process.env.GEMINI_API_KEY": JSON.stringify(env.GEMINI_API_KEY),
+      "process.env.SERVICE_NAME": JSON.stringify(env.SERVICE_NAME || ""),
+      "process.env.SERVICE_DESCRIPTION": JSON.stringify(env.SERVICE_DESCRIPTION || ""),
+      "process.env.SERVICE_URL": JSON.stringify(env.SERVICE_URL || ""),
     },
   };
 });

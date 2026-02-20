@@ -1,7 +1,7 @@
 export const SERVICE = {
-  name: "마이캐시백",
-  description: "온라인 쇼핑 시 캐시백을 받을 수 있는 서비스",
-  url: "https://mycashback.example.com",
+  name: process.env.SERVICE_NAME || "",
+  description: process.env.SERVICE_DESCRIPTION || "",
+  url: process.env.SERVICE_URL || "",
 } as const;
 
 export const MAX_REGENERATIONS = 3;
